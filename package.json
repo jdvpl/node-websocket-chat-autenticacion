@@ -1,0 +1,36 @@
+{
+  "name": "socket-chat",
+  "version": "1.0.0",
+  "description": "Este es un servidor en node rest que hae peticiones http, post, put,delete, get",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdvpl/node-rest-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdvpl/node-rest-server/issues"
+  },
+  "homepage": "https://github.com/jdvpl/node-rest-server#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.29.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "express-fileupload": "^1.3.1",
+    "express-validator": "^6.14.0",
+    "google-auth-library": "^7.12.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.1",
+    "nodemon": "^2.0.15",
+    "socket.io": "^4.4.1",
+    "uuid": "^8.3.2"
+  }
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar con Google</title>
+</head>
+<body>
+  
+  <h1>Iniciar con Google</h1>
+  <div id="g_id_onload"
+         data-client_id="239275841561-4ksj7cveka0pf65i472o4h53obco888s.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse"
+         data-auto_prompt="false">
+      </div>
+      <div class="g_id_signin"
+         data-type="standard"
+         data-size="large"
+         data-theme="outline"
+         data-text="sign_in_with"
+         data-shape="rectangular"
+         data-logo_alignment="left">
+      </div>
+      
+      <button id="google_signout" style="display:none;">
+        Salir
+      </button>
+
+      <p id="name"></p>
+      <p id="email"></p>
+      <img src="" alt="" id="image">
+
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <script>
+    
+    function handleCredentialResponse(response) {
+
+      let url=(window.location.hostname.includes('localhost'))
+      ?'http://localhost:4000/api/auth/google'
+      : 'https://jdvpl-rest-server-node.herokuapp.com/api/auth/google'
+      //  const tokenGoogle = response.credential;
+      //  console.log(tokenGoogle)
+      const body={id_token: response.credential}
+      fetch(url,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      })
+        .then(resp=> resp.json())
+        .then(resp => {
+          const boton=document.getElementById("google_signout").style.display = "block";
+          const name=document.getElementById('name');
+          const email=document.getElementById('email');
+          const image=document.getElementById('image');
+          email.innerHTML =resp.usuario.email
+          name.innerHTML =resp.usuario.name
+          image.src =resp.usuario.img
+          localStorage.setItem('email',resp.usuario.email)
+        })
+        .catch(console.warn()
+        )
+    }
+
+    const button =document.getElementById("google_signout");
+
+    button.onclick=()=>{
+      google.accounts.id.disableAutoSelect();
+      google.accounts.id.revoke(localStorage.getItem('email'), done =>{
+        localStorage.clear();
+        location.reload();
+      });
+    }
+
+  </script>
+
+</body>
+</html>
