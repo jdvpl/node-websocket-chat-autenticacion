@@ -1,11 +1,16 @@
 const express = require('express');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
+const {createServer}=require('http');
+
 const { dbConection } = require('../database/database');
+const { socketController } = require('../sockets/sockets.controller');
 class Server{
   constructor(){
     this.app = express();
-    this.port = process.env.PORT || 3000;
+    this.port = process.env.PORT || 4000;
+    this.server = createServer(this.app);
+    this.io=require('socket.io')(this.server);
 
     this.paths={
       auth:'/api/auth',
@@ -23,6 +28,9 @@ class Server{
     this.middlewares();
     // rutas de mi app
     this.routes();
+
+    // sockets
+    this.sockets();
   }
 
   async conectarDb(){
@@ -38,8 +46,13 @@ class Server{
     this.app.use(this.paths.upload, require('../routes/uploads.routes'))
     this.app.use(this.paths.message, require('../routes/messages.routes'))
   }
+
+  sockets(){
+    this.io.on('connection',socketController);
+  }
+
   listen() {
-    this.app.listen(this.port, () => {
+    this.server.listen(this.port, () => {
       console.log(`Corriendo http://localhost:${this.port}`)
     });
   }
