@@ -1,7 +1,7 @@
 
 
 class Mensaje{
-  constructor(uid,name,message,fecha=new Date().getDate){
+  constructor(uid,name,message,fecha){
     this.uid = uid;
     this.name = name;
     this.message = message;
@@ -22,9 +22,9 @@ class ChatMessages {
   get usuariosArr(){
     return Object.values(this.usuarios);
   }
-  enviarMensaje(uid,name,message, fecha=new Date().getDate){
+  enviarMensaje(uid,name,message, fecha=new Date()){
     this.mensajes.unshift(
-      new Mensaje(uid,name,message, fecha)
+      new Mensaje(uid,name,message,fecha)
     );
   }
   conectUser(user){
