@@ -1,5 +1,6 @@
 // /referencias
 const formulario=document.querySelector('form');
+const alerta=document.querySelector('#alerta');
 
 
 const url = window.location.hostname.includes("localhost")
@@ -28,9 +29,13 @@ formulario.addEventListener('submit',ev => {
   }).then(res => res.json())
   .then(({msg,token})=>{
     if(msg){
+      alerta.style.display = "block";
+      alerta.innerHTML = msg;
       return console.log(msg);
     }
+    alerta.style.display = "none";
     localStorage.setItem('token', token);
+    window.location='chat.html';
   })
   .catch(err=>{
     console.log(err)
