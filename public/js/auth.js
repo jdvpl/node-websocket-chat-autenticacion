@@ -62,6 +62,8 @@ function handleCredentialResponse(response) {
       ).style.display = "block");
       localStorage.setItem('token',resp.token);
       localStorage.setItem("email", resp.usuario.email);
+      window.location='chat.html';
+
     })
     .catch(console.warn());
 }
