@@ -53,10 +53,7 @@ const conectarSocket=async()=>{
       // todo
     })
 
-    socket.on('usuarios-activos',(payload)=>{
-      // todo
-      console.log(payload)
-    })
+    socket.on('usuarios-activos',drawUsers)
 
     socket.on('mensaje-prvado',()=>{
       // todo
@@ -65,6 +62,23 @@ const conectarSocket=async()=>{
 }
 
 
+
+const drawUsers=(users=[])=>{
+  let userHtml='';
+  users.forEach(({email,name,uid})=>{
+    userHtml+=`
+      <li>
+        <p>
+          <h5 class="text-success">${name}</h5>
+          
+          <span class="fs-6 text-muted">${uid}</span>
+          <p class="">${email}</p>
+        </p>
+      </li>
+    `;
+  })
+  ulUsers.innerHTML=userHtml;
+}
 const main=async()=>{
   await validarJWT();
 }
