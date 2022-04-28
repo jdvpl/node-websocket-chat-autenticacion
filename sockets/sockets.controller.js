@@ -19,6 +19,7 @@ const socketController=async(socket=new Socket(),io)=>{
   chatMessages.conectUser(user);
 
   io.emit('usuarios-activos',chatMessages.usuariosArr);
+  socket.emit('recibir-mensajes',chatMessages.ultimos10);
   
   socket.on('disconnect',()=>{
     chatMessages.desconectarUsuario(user.id);

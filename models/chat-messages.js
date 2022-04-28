@@ -22,7 +22,8 @@ class ChatMessages {
   get usuariosArr(){
     return Object.values(this.usuarios);
   }
-  enviarMensaje(uid,name,message, fecha=new Date()){
+  enviarMensaje(uid,name,message, fecha=new Date().toLocaleString('en-ES', {
+    timeZone: 'America/Bogota'})){
     this.mensajes.unshift(
       new Mensaje(uid,name,message,fecha)
     );

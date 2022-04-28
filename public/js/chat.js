@@ -49,9 +49,7 @@ const conectarSocket=async()=>{
     socket.on('disconnect',()=>{
       console.log("socket offline")
     })
-    socket.on('recibir-mensajes',(payload)=>{
-      console.log(payload)
-    })
+    socket.on('recibir-mensajes',drawMessages)
 
     socket.on('usuarios-activos',drawUsers)
 
@@ -78,6 +76,22 @@ const drawUsers=(users=[])=>{
     `;
   })
   ulUsers.innerHTML=userHtml;
+}
+// 
+const drawMessages=(mensajes=[])=>{
+  let messageHtml='';
+  mensajes.forEach(({message,name,fecha})=>{
+    messageHtml+=`
+      <li>
+        <p>
+          <h6 class="text-primary">${name}</h6>
+          <span class="fs-6 text-muted">${fecha}</span>
+          <p class="">${message}</p>
+        </p>
+      </li>
+    `;
+  })
+  ulMensajes.innerHTML=messageHtml;
 }
 
 txtMensaje.addEventListener('keyup',({keyCode})=>{

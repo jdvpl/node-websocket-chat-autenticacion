@@ -12,7 +12,6 @@ const validarJWT=async(req=request,res=response,next) => {
   try {
     
     const {uid}=jwt.verify(token,process.env.SECRETORPUBLICKEY);
-    console.log(uid)
     req.uid=uid;
     const user=await Usuario.findById(uid);
 
