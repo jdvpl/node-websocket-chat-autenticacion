@@ -1,7 +1,12 @@
 const { Socket } = require("socket.io");
 const { comprobarJWT } = require("../helpers");
+const {ChatMessages}=require("../models");
 
-const socketController=async(socket=new Socket)=>{
+
+const chatMessages=new ChatMessages();
+
+
+const socketController=async(socket=new Socket(),io)=>{
   const token=socket.handshake.headers['x-token'];
 
   const user= await comprobarJWT(token); 
@@ -10,7 +15,17 @@ const socketController=async(socket=new Socket)=>{
     return socket.disconnect();
   }
 
-  console.log("se conecto ",user.name)
+  // /agrega el suario conectado
+  chatMessages.conectUser(user);
+
+  io.emit('usuarios-activos',chatMessages.usuariosArr);
+  
+  socket.on('disconnect',()=>{
+    chatMessages.desconectarUsuario(user.id);
+    io.emit('usuarios-activos',chatMessages.usuariosArr);
+
+  })
+
 }
 
 module.exports={

@@ -53,8 +53,9 @@ const conectarSocket=async()=>{
       // todo
     })
 
-    socket.on('usuarios-activos',()=>{
+    socket.on('usuarios-activos',(payload)=>{
       // todo
+      console.log(payload)
     })
 
     socket.on('mensaje-prvado',()=>{
