@@ -1,3 +1,11 @@
+// referencias
+
+
+const txtUid =document.querySelector("#txtUid");
+const txtMensaje =document.querySelector("#txtMensaje");
+const ulUsers =document.querySelector("#ulUsers");
+const ulMensajes =document.querySelector("#ulMensajes");
+const btnSalir =document.querySelector("#btnSalir");
 
 const url = window.location.hostname.includes("localhost")
 ? "http://localhost:4000/api/auth/"
@@ -29,11 +37,29 @@ const validarJWT=async()=>{
 }
 
 const conectarSocket=async()=>{
-    const socket=io({
+    socket=io({
       'extraHeaders': {
         'x-token':localStorage.getItem("token")
       }
     });
+
+    socket.on('connect',()=>{
+      console.log("socket online")
+    })
+    socket.on('disconnect',()=>{
+      console.log("socket offline")
+    })
+    socket.on('recibir-mensajes',()=>{
+      // todo
+    })
+
+    socket.on('usuarios-activos',()=>{
+      // todo
+    })
+
+    socket.on('mensaje-prvado',()=>{
+      // todo
+    })
 
 }
 
