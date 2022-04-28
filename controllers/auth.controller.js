@@ -74,4 +74,13 @@ const googleSignin = async(req, res=response) => {
 
 }
 
-module.exports = {login,googleSignin};
+
+const renovarTokenController =async(req, res) => {
+  const {user}=req;
+
+  // generate a nw JWT
+  const token=await generarJWT(user.id);
+  res.json({user,token})
+}
+
+module.exports = {login,googleSignin,renovarTokenController};
