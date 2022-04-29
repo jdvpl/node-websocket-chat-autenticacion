@@ -7,6 +7,7 @@ const ulUsers =document.querySelector("#ulUsers");
 const ulMensajes =document.querySelector("#ulMensajes");
 const btnSalir =document.querySelector("#btnSalir");
 
+
 const url = window.location.hostname.includes("localhost")
 ? "http://localhost:4000/api/auth/"
 : "https://jdvpl-rest-server-node.herokuapp.com/api/auth/";
@@ -53,8 +54,8 @@ const conectarSocket=async()=>{
 
     socket.on('usuarios-activos',drawUsers)
 
-    socket.on('mensaje-prvado',()=>{
-      // todo
+    socket.on('mensaje-privado',(payload)=>{
+      console.log(payload)
     })
 
 }
@@ -93,6 +94,7 @@ const drawMessages=(mensajes=[])=>{
   })
   ulMensajes.innerHTML=messageHtml;
 }
+
 
 txtMensaje.addEventListener('keyup',({keyCode})=>{
 
